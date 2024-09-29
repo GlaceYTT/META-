@@ -13,7 +13,12 @@
     <script>
         // Fetch and display bot data from the server
         async function fetchBotData() {
-            const response = await fetch('/api/bot-data');
+            const response = await fetch('/api/bot-data'); // GET request to the new endpoint
+            if (!response.ok) {
+                const error = await response.json();
+                document.getElementById('bot-data').innerHTML = `<p>Error: ${error.message}</p>`;
+                return;
+            }
             const data = await response.json();
             const botDataDiv = document.getElementById('bot-data');
 
